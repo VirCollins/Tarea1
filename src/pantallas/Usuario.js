@@ -59,7 +59,7 @@ export default function App() {
                     nuevo_estado,
                 }),
             });
-            Bitacora.saveBitacora("el usuario ha sido "+nuevo_estado,usuario_id);
+            //Bitacora.saveBitacora("el usuario ha sido "+nuevo_estado,usuario_id);
             const result = await response.json();
             if (result.status === "success") {
                 Alert.alert("Éxito", result.message);
@@ -180,29 +180,32 @@ export default function App() {
                     <Text style={styles.modalTitle}>Listado de Usuarios</Text>
 
                     <FlatList
-                        style={styles.flatList}
-                        data={paginatedUsers}
-                        keyExtractor={(item) => item.usuario_id.toString()}
-                        ListHeaderComponent={() => (
-                            <View style={{ flexDirection: "row", padding: 10, backgroundColor: "#ddd" }}>
-                                <Text style={{ flex: 1, fontWeight: "bold" }}>Usuario</Text>
-                                <Text style={{ flex: 1, fontWeight: "bold" }}>Estado</Text>
-                                <Text style={{ flex: 1, fontWeight: "bold" }}>Acciones</Text>
-                            </View>
-                        )}
-                        renderItem={({ item }) => (
-                            <View style={{ flexDirection: "row", padding: 10, borderBottomWidth: 1 }}>
-                                <Text style={{ flex: 1 }}>{item.usuario_nombre}</Text>
-                                <Text style={{ flex: 1 }}>{item.usuario_estado}</Text>
-                                <Text style={{ flex: 1 }}>
-                                    <Button
-                                        title={item.usuario_estado === "ACTIVO" ? "Desactivar" : "Activar"}
-                                        onPress={() => toggleUserStatus(item.usuario_id, item.usuario_estado === "ACTIVO" ? "INACTIVO" : "ACTIVO")}
-                                    />
-                                </Text>
-                            </View>
-                        )}
-                    />
+    style={styles.flatList}
+    data={paginatedUsers}
+    keyExtractor={(item) => item.usuario_id}
+    ListHeaderComponent={() => (
+        <View style={{ flexDirection: "row", padding: 10, backgroundColor: "#ddd" }}>
+            <Text style={{ flex: 1, fontWeight: "bold" }}>ID</Text>
+            <Text style={{ flex: 2, fontWeight: "bold" }}>Nombre</Text>
+            <Text style={{ flex: 1, fontWeight: "bold" }}>Estado</Text>
+            <Text style={{ flex: 2, fontWeight: "bold" }}>Acciones</Text>
+        </View>
+    )}
+    renderItem={({ item }) => (
+        <View style={{ flexDirection: "row", padding: 10, borderBottomWidth: 1 }}>
+            <Text style={{ flex: 1 }}>{Number(item.usuario_id)}</Text> {/* Forzamos a número */}
+            <Text style={{ flex: 2 }}>{item.usuario_nombre}</Text>
+            <Text style={{ flex: 1 }}>{item.usuario_estado}</Text>
+            <View style={{ flex: 2 }}>
+                <Button
+                    title={item.usuario_estado === "ACTIVO" ? "Desactivar" : "Activar"}
+                    onPress={() => toggleUserStatus(item.usuario_id, item.usuario_estado === "ACTIVO" ? "INACTIVO" : "ACTIVO")}
+                />
+            </View>
+        </View>
+    )}
+/>
+
 
                     {paginatedUsers.length < users.length && (
                         <TouchableOpacity style={styles.loadMore} onPress={() => setPage(page + 1)}>

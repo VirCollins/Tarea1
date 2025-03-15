@@ -14,7 +14,7 @@ const Pantallaempleado = ({ route }) => {
         { id: '3', title: 'GPS', screen: 'GPS', modulo_codigo: 3 },
         { id: '4', title: 'Cliente', screen: 'IngresoFoto', modulo_codigo: 4 },
         { id: '5', title: 'Producto', screen: 'Notifications', modulo_codigo: 5 },
-        { id: '6', title: 'Accesos', screen: 'Notifications', modulo_codigo: 6 },
+        { id: '6', title: 'Accesos', screen: 'AsignarModulos', modulo_codigo: 6 },
         { id: '7', title: 'Desbloquear Usuario', screen: 'PantallaReset', modulo_codigo: 7 }
     ];
 
